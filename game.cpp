@@ -4,9 +4,10 @@
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL.h>
 #include "TextureManager.h"
+#include "GameObject.h"
 
-SDL_Texture* playerTex;
-SDL_Rect srcR, destR;
+GameObject* player;
+
 Game::Game()
 {}
 Game::~Game()
@@ -36,7 +37,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     else {
         isRunning = false;
     }
-    playerTex = TextureManager::LoadTexture("textures/justafloofyguy.png", renderer);
+    player = new GameObject("textures/justafloofyguy.png", renderer, 0 , 0);
 }
 
 void Game::handleEvents(){
@@ -53,10 +54,7 @@ void Game::handleEvents(){
 
 void Game::update()
 {
-    count ++;
-    destR.h = 64;
-    destR.w = 64;
-    destR.x = count/2;
+    player->Update();
 
     std::cout << count << std::endl;
 }
@@ -64,7 +62,7 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, playerTex, NULL, &destR);
+    player -> Render();
     //This is where we add stuff to render
     SDL_RenderPresent(renderer);
 }
