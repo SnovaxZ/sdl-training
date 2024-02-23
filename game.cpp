@@ -56,7 +56,7 @@ void Game::update()
 {
     player->Update();
 
-    std::cout << count << std::endl;
+
 }
 
 void Game::render()
